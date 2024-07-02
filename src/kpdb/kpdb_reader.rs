@@ -11,7 +11,7 @@ use std::{
 pub struct KPDBReader {
     file: BufReader<File>,
     header: Header,
-    central_directory: CentralDirectory,
+    pub central_directory: CentralDirectory,
 }
 
 impl KPDBReader {

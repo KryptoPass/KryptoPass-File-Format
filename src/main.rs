@@ -45,7 +45,7 @@ fn main() {
         kpdb.finalize().expect("Failed to finalize file");
     }
 
-    // Ejemplo de uso de la API de alto nivel para lectura
+    // Ejemplo de uso de la API de alto nivel para lectura y listado
     {
         let mut kpdb = KPDB::open("example.kpdb").expect("Failed to open file");
 
@@ -53,8 +53,13 @@ fn main() {
         let data: Vec<u8> = kpdb.read(0).expect("Failed to read data");
         println!("Read data: {:?}", data);
 
-
         let complex_data: ComplexData = kpdb.read(1).expect("Failed to read complex data");
         println!("Read complex data: {:?}", complex_data);
+
+        // Listar archivos almacenados
+        let files = kpdb.list_files().expect("Failed to list files");
+        for file in files {
+            println!("File: {}, Size: {}, Crc: {}, Mac: {:?}", file.file_name, file.file_size, file.crc, file.mac);
+        }
     }
 }

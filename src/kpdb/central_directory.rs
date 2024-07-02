@@ -5,7 +5,7 @@ pub struct CentralDirectory {
     pub files: Vec<FileMetadata>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct FileMetadata {
     pub file_name: String,
     pub file_offset: u64,

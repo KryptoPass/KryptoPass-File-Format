@@ -11,7 +11,7 @@ pub struct KPDBWriter {
     file: BufWriter<File>,
     filepath: String,
     header: Header,
-    central_directory: CentralDirectory,
+    pub central_directory: CentralDirectory,
     current_offset: u64,
 }
 

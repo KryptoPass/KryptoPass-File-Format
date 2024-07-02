@@ -10,6 +10,7 @@ pub use file_record::FileRecord;
 pub use metadata::Metadata;
 pub use kpdb_writer::KPDBWriter;
 pub use kpdb_reader::KPDBReader;
+use central_directory::FileMetadata;
 use serde::{Serialize, Deserialize};
 use std::io;
 
@@ -85,6 +86,17 @@ impl KPDB {
             Ok(data)
         } else {
             Err(io::Error::new(io::ErrorKind::Other, "File is not opened for reading"))
+        }
+    }
+
+    // Listar archivos almacenados
+    pub fn list_files(&self) -> io::Result<Vec<FileMetadata>> {
+        if let Some(reader) = &self.reader {
+            Ok(reader.central_directory.files.clone())
+        } else if let Some(writer) = &self.writer {
+            Ok(writer.central_directory.files.clone())
+        } else {
+            Err(io::Error::new(io::ErrorKind::Other, "File is not opened"))
         }
     }
 }
